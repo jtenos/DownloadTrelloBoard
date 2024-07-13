@@ -1,12 +1,13 @@
-// Execute board-urls.js in the console first, which populates the boardUrls variable
-// Should look like this:
 const boardUrls = new Map()
-boardUrls.set('First list name', 'https://trello.com/b/whatever.json')
-boardUrls.set('Second list name', 'https://trello.com/b/whatever.json')
 
+document.querySelectorAll('a.board-tile').forEach(elem => {
+	const hrefFields = elem.href.split('/')
+	const boardID = hrefFields[4];
+	const boardName = hrefFields[5]
+	boardUrls.set(boardName, `https://trello.com/b/${boardID}.json`)
+})
 
 function writeFile(fileName, txt) {
-	// This runs in a browser
 	return new Promise((resolve, reject) => {
 		const blob = new Blob([txt], { type: "text/plain" });
 		const url = URL.createObjectURL(blob);
